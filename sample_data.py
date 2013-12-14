@@ -1,7 +1,4 @@
-import json
-import urllib2
-
-y = {
+sample_data = {
  "request": {
   "departureAirport": {
    "requestedCode": "SEA",
@@ -350,15 +347,3 @@ y = {
   }
  ]
 }
-
-z = urllib2.urlopen('https://api.flightstats.com/flex/flightstatus/rest/v2/json/route/status/SEA/BZN/dep/2013/12/12?appId=015d2e15&appKey=b98718a9c785fc9ea31ba1ea12af9b47&hourOfDay=0&utc=false&numHours=24&codeType=IATA&maxFlights=5')
-y = json.load(z)
-
-
-print len(y['flightStatuses'])
-
-for ele in y['flightStatuses']:
-	print ele['flightId']
-	print ele['carrierFsCode'] + ' ' + ele['flightNumber']
-	print type(ele)
-	print
