@@ -1,13 +1,16 @@
 import json
 import urllib2
 
-#test data
+# keys
+import codes
+
+# test data
 import bos_sea_data
 import sample_data
 
 
-appId = '015d2e15'
-appKey = 'b98718a9c785fc9ea31ba1ea12af9b47'
+appId = codes.appId
+appKey = codes.appKey
 
 depart_ap = 'BOS'
 arrival_ap = 'SEA'
@@ -15,9 +18,9 @@ year = '2013'
 month = '12'
 day = '13'
 
-#depart_ap = raw_input('Departure airport: ')
-#arrival_ap = raw_input('Arrival airport: ')
-#(month, day, year) = raw_input('Depature date (MM/DD/YYYY): ').split('/')
+depart_ap = raw_input('Departure airport: ')
+arrival_ap = raw_input('Arrival airport: ')
+(month, day, year) = raw_input('Depature date (MM/DD/YYYY): ').split('/')
 
 codeType = 'IATA'
 
@@ -36,9 +39,12 @@ url = 'https://api.flightstats.com/flex/flightstatus/rest/v2/json/route/status/'
 #		if not(url[x] == testUrl[x]):
 #			print "!!!!!!!!!!"
 
-# json_data = urllib2.urlopen(url)
+
+## Enable for live data
+#j son_data = urllib2.urlopen(url)
 # data = json.load(json_data)
 
+## Enable for testing data
 data = bos_sea_data.route_lookup_data
 
 # print data
@@ -54,9 +60,12 @@ list_o_keys.sort()
 print  str(len(flights.keys())) + ' flights found:'
 
 for index in range(0, len(list_o_keys)):
-	print str(index + 1) + '. ' + list_o_keys[index]
+	print str(index) + '. ' + list_o_keys[index]
 
-flight_select = int(raw_input('Select flight to look up: ')) - 1
+while True:
+	flight_select = int(raw_input('Select flight to look up: '))
+	if not (flight_select > len(list_o_keys) - 1 or flight_select < 0):
+		break
 
 flight_id = str(flights[list_o_keys[flight_select]])
 
